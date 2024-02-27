@@ -1,0 +1,17 @@
+-- TASK 2
+DECLARE 
+	min_val NUMBER := 1;
+	max_val NUMBER := 10000;
+BEGIN
+	FOR i IN 1..10000 LOOP
+		INSERT INTO MyTable (id, val) VALUES (FLOOR(DBMS_RANDOM.VALUE(min_val, max_val)), FLOOR(DBMS_RANDOM.VALUE(min_val, max_val)));
+	END LOOP
+	COMMIT;
+	DBMS_OUTPUT.PUT_LINE('Changes done.');
+	EXCEPTION 
+		WHEN OTHERS THEN
+			DBMS_OUTPUT.PUT_LINE('Error. Changes denied.');
+			ROLLBACK;
+END;
+
+SELECT * FROM MyTable ORDER BY id;
